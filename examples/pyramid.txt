@@ -1,0 +1,37 @@
+var -
+var space
+var newl
+
+addletter - -
+add newl 10
+add space 32
+
+var i
+var j
+var k
+
+add i 1
+add j 10
+
+#while j
+  copy j k
+  #while k
+    print space
+    add k -1
+  #endwhile
+
+  copy i k
+  #while k
+    print -
+    add k -1
+  #endwhile
+
+  copy j k
+  #while k
+    print space
+    add k -1
+  #endwhile
+  print newl
+  add i 2
+  add j -1
+#endwhile

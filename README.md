@@ -1,35 +1,44 @@
 # Antosser's Brainfuck Compiler
 ## Overview
-This is one of my big projects.  
-It compiles assembly-like code to brainfuck. Pretty useless but very funny and nearly impossible to disassembly.
+It compiles assembly-like code to Brainfuck.
 
 ## Usage
-Once you run the main.py file in the command line it will ask you for a command.  
-Common commands are:
-- **edit** - Opens your uncompiled code in notepad so you can edit it 
-- **compile** - **Compiles** your uncompiled code and outputs it to the console
-- **run** - **Runs** your compiled code
-- **cr** - **Compiles** and **runs** your code
-
-### Functions
-As you read earlier, you can edit the uncompiled code in notepad using the **edit** command.  
-Every line in the code starts with a function name (ex. `var`) and are being followed with their arguments.
-The functions are: 
-- **var** <varibale name> - **declare** a varibale
-- **add** <declared varibale> <number> - add some value to a varibale
-- **copy** <varibale1> <varibale2> - add the value from varibale1 to varibale2
-- **move** <varibale1> <varibale2> - same as copy but varibale1 gets erased (faster)
-- **multiply** <varibale> <number> - multiply a varibale with a number
-- **multiply** <varibale1> <varibale2> <number> - multiply varibale1 with number while varibale1 is erased and output is written to varibale2
-- **clear** - clear a varibales value
-- **input** - creates a varibale "input" if not already declared and prompts the user for an input
-- **input** <varibale> - set the varibale to the user input
-- **print** <varibale> - print the ascii character of a varibale value
+### Writing/editing code
+Open the "code.txt" file with a text editor. That's where the code belongs.  
+Every line in the code starts with a function name (e.g. `var`) and is followed by it's arguments.
+Use the following functions to write your code: 
+- **var** <variable name> - **declare** a variable with value 0
+- **add** <declared variable> <number> - add some value to a variable
+- **copy** <variable1> <variable2> - duplicate the value from variable1 to variable2
+- **move** <variable1> <variable2> - same as "copy" but variable1 gets erased (much faster than copy)
+- **multiply** <variable> <number> - multiply a variable with a number
+- **multiply** <variable1> <variable2> <number> - multiply variable1 with number while variable1 is erased and output is written to variable2
+- **clear** <variable> - set the variable value to 0
+- **input** - creates a variable "input" if not already declared and prompts the user for an input
+- **input** <variable> - set the variable to the user input
+- **print** <variable> - print the ascii character of a variable value
 - **#pause** - halt the programm
+- **#if** <variable> number <number> - if variable is equal to number, code between "#if" and "#endif" gets executed
+- **#if** <variable> letter <letter> - if variable contains the ascii code of the letter, code between "#if" and "#endif" gets executed
+- **#if** <variable1> variable <variable2> - if variable1 is equal to variable2, code between "#if" and "#endif" gets executed
+- **#endif** - close an if statement
+- **#else** - just a regular else statement used instead of #endif
+- **#endelse** - close an else statement
+- **#while** <variable> - repeats executing the code between "#while" and "#endwhile" while the variable is non-zero
+- **#endwhile** - close a while statement
+
+### Compilation to Brainfuck
+Run the "main.py" file in the command line. Console will ask you for a command.
+To compile code from "code.txt" to "compiled.bf", enter **compile** as the input.
+You'll see the compiled code in the console as well.
+In case you want to compile and run your code at the same time, use  the **cr** command in the Console.
+
+### Running the compiled code
+If you want to try executing the previously compiled code, use the **run** command in the Console.
 
 ## Example
 Here is an example of an uncompiled code:
 ```
-// Create a varibale called myvar
+// Create a variable called myvar
 var myvar
 ```

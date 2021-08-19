@@ -42,7 +42,7 @@ def compile(doprint):
 				args.remove('')
 			except Exception:
 				pass
-		if line == '' or line.startswith('//'):
+		if line == '' or line.startswith('//') or len(args) < 1:
 			continue
 		if args[0] == 'var':
 			if len(args) != 2:
@@ -58,24 +58,6 @@ def compile(doprint):
 				print(' Error: Allocate accepts 2 arguments but ' + str(len(args)) + ' were taken')
 				return
 			nextvar += int(args[1])
-		elif args[0] == 'subtract':
-			if len(args) != 3:
-				print(' Error: Subtract accepts 3 arguments but ' + str(len(args)) + ' were taken')
-				return
-			if not args[1] in varibales:
-				print(' Error: ' + args[1] + ' was not declared')
-				return
-			try:
-				int(args[2])
-			except ValueError:
-				print(' Third argument in add must be int')
-				return
-			result, x = comove(result, x, varibales[args[1]])
-			for i in range(abs(int(args[2]))):
-				if int(args[2]) > 0:
-					result += '-'
-				if int(args[2]) < 0:
-					result += '+'
 		elif args[0] == 'copy':
 			if len(args) != 3:
 				print(' Error: Copy accepts 3 arguments but ' + str(len(args)) + ' were taken')
@@ -176,25 +158,6 @@ def compile(doprint):
 			result += '+'
 			result, x = comove(result, x, varibales[args[1]])
 			result += '-]'
-		elif args[0] == 'set':
-			if len(args) != 3:
-				print(' Error: Set accepts 3 arguments but ' + str(len(args)) + ' were taken')
-				return
-			if not args[1] in varibales:
-				print(' Error: ' + args[1] + ' was not declared')
-				return
-			try:
-				int(args[2])
-			except ValueError:
-				print(' Third argument in add must be int')
-				return
-			result, x = comove(result, x, varibales[args[1]])
-			result += '[-]'
-			for i in range(abs(int(args[2]))):
-				if int(args[2]) > 0:
-					result += '+'
-				if int(args[2]) < 0:
-					result += '-'
 		elif args[0] == '#while':
 			if len(args) != 2:
 				print(' Error: While accepts 2 arguments but ' + str(len(args)) + ' were taken')
@@ -369,6 +332,7 @@ def compile(doprint):
 				mo = 1
 				if int(args[2]) < 0:
 					mo *= -1
+				result, x = comove(result, x, varibales[args[1]])
 				dif = int(args[2]) - int(fac[0]) * int(fac[1] * mo)
 				for i in range(abs(int(dif))):
 					if int(dif) > 0:
