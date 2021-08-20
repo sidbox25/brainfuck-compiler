@@ -39,6 +39,32 @@ If you want to try executing the previously compiled code, use the **run** comma
 ## Example
 Here is an example of an uncompiled code:
 ```
-// Create a variable called myvar
-var myvar
+  // Create a variable called myvar, myvar2
+  var myvar
+  var myvar2
+  
+  // Add 50 to myvar
+  add myvar 50
+  
+  // Copy the value of myvar to myvar2
+  copy myvar myvar2
+  // Now myvar and myvar2 contain the value 50
+  
+  // Set myvar to 0
+  clear myvar
+  
+  // Move the value of myvar2 to myvar
+  move myvar2 myvar
+  // Now myvar is 50 and myvar2 is 0
+  
+  // Multiply myvar by 3 (50 * 3 = 150)
+  multiply myvar 3
+  
+  // Initialize varibale input and set it to users input
+  var input
+  input input
+  
+  // Print the next character of users input
+  add input 1
+  print input
 ```
