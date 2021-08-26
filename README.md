@@ -117,14 +117,14 @@ My brainfuck compiler is very optimized. Here are some compilation examples:
   add a 10
 ```
 gets compiled to
-++++++++++
+```++++++++++```
 But
 ```
   var a
   add a 20
 ```
 gets compiled to
->+++++[>++++<-]>
+```>+++++[>++++<-]>```
 which is only 16 characters
   
 ```
@@ -134,7 +134,7 @@ which is only 16 characters
   move a b
 ```
 gets compiled to
->++++++[>+++++<-]>[>+<-]
+```>++++++[>+++++<-]>[>+<-]```
 
 ```
   var a
@@ -145,7 +145,7 @@ gets compiled to
   #endif
 ```
 gets compiled to
->>,>,<[<+<+>>-]<[>+<-]>>[<<+<-
+```>>,>,<[<+<+>>-]<[>+<-]>>[<<+<-
 >>>-]<<[>>+<<-]<[>+<-]+>[<->[-
-]]<[[-]]
+]]<[[-]]```
 ifs are pretty long
