@@ -1,28 +1,6 @@
-var i
-var j
-var k
-add i 100
-
-var space
-add space 32
-var newl
-add newl 10
-var o
-addletter o O
-
-#while newl
-  #while i
-    copy j k
-    #while k
-      print space
-      add k -1
-    #endwhile
-    print o
-    print newl
-  
-    add i -1
-    add j 1
-  #endwhile
-  clear j
-  add i 100
-#endwhile
+var a
+var b
+input a
+input b
+#if a var b
+#endif

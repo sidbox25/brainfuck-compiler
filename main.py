@@ -308,9 +308,9 @@ def compile(doprint):
 					return
 				args[2] = ord(args[2])
 				
-			result, x = comove(result, x, varibales[args[1]])
 			fac = bestMultiply(abs(int(args[2])))
 			if fac[0] + fac[1] + 5 > abs(int(args[2])):
+				result, x = comove(result, x, varibales[args[1]])
 				for i in range(abs(int(args[2]))):
 					if int(args[2]) > 0:
 						result += '+'
