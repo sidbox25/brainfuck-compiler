@@ -1,0 +1,23 @@
+var one
+var ten
+var num
+
+input
+toint input
+multiply input num 10
+input
+toint input
+move input num
+input
+toint input
+multiply input num 10
+input
+toint input
+move input num
+
+todec num one ten
+
+tostr one
+tostr ten
+print ten
+print one
