@@ -365,6 +365,117 @@ def compile(doprint):
 					result += '-'
 			result, x = comove(result, x, varibales['iftemp'])
 			result += '.[-]'
+		elif args[0] == 'todec':
+			if len(args) != 4:
+				print(' Error: Todec accepts 2 arguments but ' + str(len(args)) + ' were taken')
+				return
+			for i in range(3):
+				if not args[1 + i] in varibales:
+					print(' Error: ' + args[i] + ' was not declared')
+					return
+			if not ':btdn' in varibales:
+					varibales[':btdn'] = nextvar
+					nextvar += 1
+			# add 10 to 2
+			result, x = comove(result, x, varibales[args[2]])
+			result += '++++++++++'
+			# Copy 1 to :btdn
+			result, x = comove(result, x, varibales[args[1]])
+			result += '['
+			result, x = comove(result, x, varibales['temp'])
+			result += '+'
+			result, x = comove(result, x, varibales[':btdn'])
+			result += '+'
+			result, x = comove(result, x, varibales[args[1]])
+			result += '-]'
+			result, x = comove(result, x, varibales['temp'])
+			result += '['
+			result, x = comove(result, x, varibales[args[1]])
+			result += '+'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-]'
+			# while
+			result, x = comove(result, x, varibales[':btdn'])
+			result += '[-'
+			# add -1 to 2
+			result, x = comove(result, x, varibales[args[2]])
+			result += '-'
+			# Copy 2 to iftemp
+			result, x = comove(result, x, varibales[args[2]])
+			result += '['
+			result, x = comove(result, x, varibales['temp'])
+			result += '+'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '+'
+			result, x = comove(result, x, varibales[args[2]])
+			result += '-]'
+			result, x = comove(result, x, varibales['temp'])
+			result += '['
+			result, x = comove(result, x, varibales[args[2]])
+			result += '+'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-]'
+			# add -1 to temp if iftemp
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '[[-]'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += ']'
+			# add temp 1
+			result, x = comove(result, x, varibales['temp'])
+			result += '+'
+			#while temp: add temp -1; add dec 1; add i 10
+			result += '[-'
+			result, x = comove(result, x, varibales[args[3]])
+			result += '+'
+			result, x = comove(result, x, varibales[args[2]])
+			result += '++++++++++'
+			result, x = comove(result, x, varibales['temp'])
+			result += ']'
+			result, x = comove(result, x, varibales[':btdn'])
+			result += ']'
+			# a2 = 10 - a2
+			result, x = comove(result, x, varibales['temp'])
+			result += '++++++++++'
+			result, x = comove(result, x, varibales[args[2]])
+			result += '[-'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-'
+			result, x = comove(result, x, varibales[args[2]])
+			result += ']'
+			result, x = comove(result, x, varibales['temp'])
+			result += '[-'
+			result, x = comove(result, x, varibales[args[2]])
+			result += '+'
+			result, x = comove(result, x, varibales['temp'])
+			result += ']'
+		elif args[0] == 'toint':
+			if len(args) != 2:
+				print(' Error: Toint accepts 3 arguments but ' + str(len(args)) + ' were taken')
+				return
+			if not args[1] in varibales:
+				print(' Error: ' + args[1] + ' was not declared')
+				return
+			result, x = comove(result, x, varibales['temp'])
+			result += '++++++++[-'
+			result, x = comove(result, x, varibales[args[1]])
+			result += '------'
+			result, x = comove(result, x, varibales['temp'])
+			result += ']'
+		elif args[0] == 'tostr':
+			if len(args) != 2:
+				print(' Error: Tostr accepts 3 arguments but ' + str(len(args)) + ' were taken')
+				return
+			if not args[1] in varibales:
+				print(' Error: ' + args[1] + ' was not declared')
+				return
+			result, x = comove(result, x, varibales['temp'])
+			result += '++++++++[-'
+			result, x = comove(result, x, varibales[args[1]])
+			result += '++++++'
+			result, x = comove(result, x, varibales['temp'])
+			result += ']'
 		else:
 			print(' Error: No command called ' + args[0])
 			return
