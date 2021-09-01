@@ -1,10 +1,8 @@
-var -
-var space
-var newl
+var dash
+addletter dash -
 
-addletter - -
-add newl 10
-add space 32
+def newl
+def space
 
 var i
 var j
@@ -16,22 +14,22 @@ add j 10
 #while j
   copy j k
   #while k
-    print space
+    space
     add k -1
   #endwhile
 
   copy i k
   #while k
-    print -
+    print dash
     add k -1
   #endwhile
 
   copy j k
   #while k
-    print space
+    space
     add k -1
   #endwhile
-  print newl
+  newl
   add i 2
   add j -1
 #endwhile
