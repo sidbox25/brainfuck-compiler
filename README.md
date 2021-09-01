@@ -33,7 +33,7 @@ To compile code from "code.txt" to "compiled.bf", enter **compile** as the input
 You'll see the compiled code in the console as well.
 In case you want to compile and run your code at the same time, use  the **cr** command in the Console.
 
-### Running the compiled code
+### [Running the compiled code](https://htmlpreview.github.io/?//github.com/Antosser/brainfuck-compiler/blob/master/index.html)
 If you want to try executing the previously compiled code, use the **run** command in the Console.
 
 ## Example
