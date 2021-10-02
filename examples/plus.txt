@@ -1,11 +1,14 @@
 var a
+var b
 
 input
+copy input b
 toint input
 copy input iftemp
 #while iftemp
   clear iftemp
-  print input
+  print b
+  clear b
 #endwhile
 multiply input a 10
 input
@@ -20,11 +23,13 @@ printletter +
 space
 
 input
+copy input b
 toint input
 copy input iftemp
 #while iftemp
   clear iftemp
-  print input
+  print b
+  clear b
 #endwhile
 multiply input a 10
 input

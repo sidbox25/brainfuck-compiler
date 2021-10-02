@@ -14,10 +14,14 @@ add i 14
 #while i
   todec a one ten hun
   tostr one
-  tostr ten
-  tostr hun
-  print hun
-  print ten
+  #ifn0 hun
+    tostr hun
+    print hun
+  #endif
+  #ifn0 ten
+    tostr ten
+    print ten
+  #endif
   print one
   clear one
   clear ten

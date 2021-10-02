@@ -291,7 +291,7 @@ def compile(doprint):
 			result += ']'
 		elif args[0] == 'add' or args[0] == 'addletter':
 			if len(args) != 3:
-				print(' Error: Add accepts 3 arguments but ' + str(len(args)) + ' were taken')
+				print(' Error: Add / Addletter accepts 3 arguments but ' + str(len(args)) + ' were taken')
 				return
 			if not args[1] in varibales:
 				print(' Error: ' + args[1] + ' was not declared')
@@ -366,10 +366,16 @@ def compile(doprint):
 			result, x = comove(result, x, varibales['iftemp'])
 			result += '.[-]'
 		elif args[0] == 'todec':
-			if len(args) != 4:
-				print(' Error: Todec accepts 2 arguments but ' + str(len(args)) + ' were taken')
+			if not len(args) in (2, 5):
+				print(' Error: Todec accepts 2 or 5 arguments but ' + str(len(args)) + ' were taken')
 				return
-			for i in range(3):
+			if len(args) == 2:
+				for i in ('one', 'ten', 'hun'):
+					if not i in varibales:
+						varibales[i] = nextvar
+						nextvar += 1
+						args.append(i)
+			for i in range(4):
 				if not args[1 + i] in varibales:
 					print(' Error: ' + args[i] + ' was not declared')
 					return
@@ -450,6 +456,73 @@ def compile(doprint):
 			result += '+'
 			result, x = comove(result, x, varibales['temp'])
 			result += ']'
+			# -----------Dupe
+			# Move 3 (Copy 1) to :btdn
+			result, x = comove(result, x, varibales[args[3]])
+			result += '[-'
+			result, x = comove(result, x, varibales[':btdn'])
+			result += '+'
+			result, x = comove(result, x, varibales[args[3]])
+			result += ']'
+			# add 10 to 2
+			result, x = comove(result, x, varibales[args[3]])
+			result += '++++++++++'
+			# while
+			result, x = comove(result, x, varibales[':btdn'])
+			result += '[-'
+			# add -1 to 2
+			result, x = comove(result, x, varibales[args[3]])
+			result += '-'
+			# Copy 3 to iftemp
+			result, x = comove(result, x, varibales[args[3]])
+			result += '['
+			result, x = comove(result, x, varibales['temp'])
+			result += '+'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '+'
+			result, x = comove(result, x, varibales[args[3]])
+			result += '-]'
+			result, x = comove(result, x, varibales['temp'])
+			result += '['
+			result, x = comove(result, x, varibales[args[3]])
+			result += '+'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-]'
+			# add -1 to temp if iftemp
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '[[-]'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += ']'
+			# add temp 1
+			result, x = comove(result, x, varibales['temp'])
+			result += '+'
+			#while temp: add temp -1; add dec 1; add i 10
+			result += '[-'
+			result, x = comove(result, x, varibales[args[4]])
+			result += '+'
+			result, x = comove(result, x, varibales[args[3]])
+			result += '++++++++++'
+			result, x = comove(result, x, varibales['temp'])
+			result += ']'
+			result, x = comove(result, x, varibales[':btdn'])
+			result += ']'
+			# a2 = 10 - a2
+			result, x = comove(result, x, varibales['temp'])
+			result += '++++++++++'
+			result, x = comove(result, x, varibales[args[3]])
+			result += '[-'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-'
+			result, x = comove(result, x, varibales[args[3]])
+			result += ']'
+			result, x = comove(result, x, varibales['temp'])
+			result += '[-'
+			result, x = comove(result, x, varibales[args[3]])
+			result += '+'
+			result, x = comove(result, x, varibales['temp'])
+			result += ']'
 		elif args[0] == 'toint':
 			if len(args) != 2:
 				print(' Error: Toint accepts 3 arguments but ' + str(len(args)) + ' were taken')
@@ -476,13 +549,192 @@ def compile(doprint):
 			result += '++++++'
 			result, x = comove(result, x, varibales['temp'])
 			result += ']'
+		elif args[0] == 'newl':
+			if not 'newl' in varibales:
+				print(' Error: newl was not declared')
+				return
+			result, x = comove(result, x, varibales['newl'])
+			result += '.'
+		elif args[0] == 'space':
+			if not 'space' in varibales:
+				print(' Error: space was not declared')
+				return
+			result, x = comove(result, x, varibales['space'])
+			result += '.'
+		elif args[0] == 'def':
+			if len(args) != 2:
+				print(' Error: Def accepts 3 arguments but ' + str(len(args)) + ' were taken')
+				return
+			if not args[1] in ('space', 'newl', 'true'):
+				print(' Error: Second argument in def must be space, newl, false, true')
+				return
+			if args[1] == 'space':
+				varibales['space'] = nextvar
+				nextvar += 1
+				result, x = comove(result, x, varibales['temp'])
+				result += '++++[-'
+				result, x = comove(result, x, varibales['space'])
+				result += '++++++++'
+				result, x = comove(result, x, varibales['temp'])
+				result += ']'
+			if args[1] == 'newl':
+				varibales['newl'] = nextvar
+				nextvar += 1
+				result, x = comove(result, x, varibales['newl'])
+				result += '++++++++++'
+			if args[1] == 'false':
+				varibales['false'] = nextvar
+				nextvar += 1
+				result, x = comove(result, x, varibales['false'])
+			if args[1] == 'true':
+				varibales['true'] = nextvar
+				nextvar += 1
+				result, x = comove(result, x, varibales['true'])
+				result += '+'
+		elif args[0] == '#ifn0':
+			if len(args) != 2:
+				print(' Error: Ifn0 accepts 2 arguments but ' + str(len(args)) + ' were taken')
+				return
+			if not args[1] in varibales:
+				print(' Error: ' + args[1] + ' was not declared')
+				return
+			# Copy a iftemp
+			result, x = comove(result, x, varibales[args[1]])
+			result += '['
+			result, x = comove(result, x, varibales['temp'])
+			result += '+'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '+'
+			result, x = comove(result, x, varibales[args[1]])
+			result += '-]'
+			result, x = comove(result, x, varibales['temp'])
+			result += '['
+			result, x = comove(result, x, varibales[args[1]])
+			result += '+'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-]'
+			# while
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '[[-]'
+		elif args[0] == '#if0':
+			if len(args) != 2:
+				print(' Error: Ifn0 accepts 2 arguments but ' + str(len(args)) + ' were taken')
+				return
+			if not args[1] in varibales:
+				print(' Error: ' + args[1] + ' was not declared')
+				return
+			# Copy a iftemp
+			result, x = comove(result, x, varibales[args[1]])
+			result += '['
+			result, x = comove(result, x, varibales['temp'])
+			result += '+'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '+'
+			result, x = comove(result, x, varibales[args[1]])
+			result += '-]'
+			result, x = comove(result, x, varibales['temp'])
+			result += '['
+			result, x = comove(result, x, varibales[args[1]])
+			result += '+'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-]'
+			# while
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '[[-]'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += ']'
+			result, x = comove(result, x, varibales['temp'])
+			result += '+[-'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '+'
+			result, x = comove(result, x, varibales['temp'])
+			result += ']'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '[[-]'
+		elif args[0] == 'printdec':
+			if len(args) != 4:
+				print(' Error: Printdec accepts 4 arguments but ' + str(len(args)) + ' were taken')
+				return
+			for i in range(3):
+				if not args[1 + i] in varibales:
+					print(' Error: ' + args[i] + ' was not declared')
+					return
+			# Copy a iftemp
+			result, x = comove(result, x, varibales[args[3]])
+			result += '['
+			result, x = comove(result, x, varibales['temp'])
+			result += '+'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '+'
+			result, x = comove(result, x, varibales[args[3]])
+			result += '-]'
+			result, x = comove(result, x, varibales['temp'])
+			result += '['
+			result, x = comove(result, x, varibales[args[3]])
+			result += '+'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-]'
+			# while
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '[[-]'
+			# tostr
+			result, x = comove(result, x, varibales['temp'])
+			result += '++++++++[-'
+			result, x = comove(result, x, varibales[args[3]])
+			result += '++++++'
+			result, x = comove(result, x, varibales['temp'])
+			result += ']'
+			result, x = comove(result, x, varibales[args[3]])
+			result += '.[-]'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += ']'
+			# Same for 2
+			result, x = comove(result, x, varibales[args[2]])
+			result += '['
+			result, x = comove(result, x, varibales['temp'])
+			result += '+'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '+'
+			result, x = comove(result, x, varibales[args[2]])
+			result += '-]'
+			result, x = comove(result, x, varibales['temp'])
+			result += '['
+			result, x = comove(result, x, varibales[args[2]])
+			result += '+'
+			result, x = comove(result, x, varibales['temp'])
+			result += '-]'
+			# while
+			result, x = comove(result, x, varibales['iftemp'])
+			result += '[[-]'
+			# tostr
+			result, x = comove(result, x, varibales['temp'])
+			result += '++++++++[-'
+			result, x = comove(result, x, varibales[args[2]])
+			result += '++++++'
+			result, x = comove(result, x, varibales['temp'])
+			result += ']'
+			result, x = comove(result, x, varibales[args[2]])
+			result += '.[-]'
+			result, x = comove(result, x, varibales['iftemp'])
+			result += ']'
+			# 1
+			result, x = comove(result, x, varibales['temp'])
+			result += '++++++++[-'
+			result, x = comove(result, x, varibales[args[1]])
+			result += '++++++'
+			result, x = comove(result, x, varibales['temp'])
+			result += ']'
+			result, x = comove(result, x, varibales[args[1]])
+			result += '.[-]'
 		else:
 			print(' Error: No command called ' + args[0])
 			return
 
 	lines = []
-	for i in range(0, len(result), 30):
-		lines.append(result[i:i+30])
+	for i in range(0, len(result), 50):
+		lines.append(result[i:i+50])
 	result = '\n'.join(lines)
 	if doprint:
 		print(result)
@@ -507,6 +759,14 @@ def main():
 			elif inp == 'run':
 				system('".\\brainfuck-interpreter.exe" compiled.bf')
 				print('\n')
+			elif inp == 'new':
+				system('copy base.txt code.txt')
+			elif inp.split(' ')[0] == 'save' and len(inp.split(' ')) == 2:
+				system('copy code.txt examples\\' + inp.split(' ')[1] + '.txt')
+			elif inp.split(' ')[0] == 'load' and len(inp.split(' ')) == 2:
+				system('copy examples\\' + inp.split(' ')[1] + '.txt' + ' code.txt')
+			elif inp == 'list':
+				system('dir examples\\')
 			elif inp == 'cr':
 				compile(False)
 				system('".\\brainfuck-interpreter.exe" compiled.bf')
