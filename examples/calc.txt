@@ -1,6 +1,13 @@
 var a
 var b
 var operation
+var tenhun
+var one
+var ten
+var hun
+var i
+var egg
+add egg 1
 
 input
 print input
@@ -23,8 +30,12 @@ print input
 toint input
 move input b
 
+@comment
+
 def space
 def newl
+
+@comment
 
 #if operation letter =
   space
@@ -60,7 +71,6 @@ def newl
         #endwhile
       #else
         #if operation letter /
-          var i
           copy b i
           #while a
             add a -1
@@ -70,16 +80,68 @@ def newl
               add result 1
             #endif
           #endwhile
-        #endif
+        #else
+          #if operation letter %
+            copy b i
+            #while a
+              add a -1
+              add i -1
+              #if0 i
+                copy b i
+              #endif
+            #endwhile
+            move b result
+            #while i
+              add result -1
+              add i -1
+            #endwhile
+          #else
+            #if operation letter ^
+              add result 1
+              #while b
+                #while result
+                  copy a iftemp
+                  add result -1
+                #endwhile
+                move iftemp result
+                add b -1
+              #endwhile
+            #else
+              #if operation letter a
+                newl
+                newl
+                extern +++++++++++++++++++++[>++>+++>++++>+++++>++++++<<<<<-]+++++++++++++++++++++>>>>-.>----------..----.+++.<<<-----.<+++++..>>>-.++.>+.<-.>+.<------.<<<-.>>>+.>------.--.<<<<+.>+++++++.>>>+.++++++.-----.++++..<++.>-.
+                add egg -1
+              #endif
+            #endelse
+          #endelse
+        #endelse
       #endelse
     #endelse
   #endelse
-  
+
+  @comment  
+  #ifn0 egg
   space
   printletter =
   space
-  todec result
-  printdec one ten hun
+  todec result one ten hun
+  copy ten tenhun
+  copy hun tenhun
+  #ifn0 hun
+    tostr hun
+    print hun
+  #endif
+  #ifn0 tenhun
+    tostr ten
+    print ten
+  #endif
+  tostr one
+  print one
+  clear one
+  clear ten
+  clear hun
+  #endif
 #endelse
 
 newl
