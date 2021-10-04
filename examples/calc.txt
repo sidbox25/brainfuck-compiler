@@ -1,3 +1,4 @@
+// Variables
 var a
 var b
 var operation
@@ -8,122 +9,134 @@ var hun
 var i
 var egg
 add egg 1
+var result
+var ipart
 
-input
-print input
-toint input
-multiply input a 10
-input
-print input
-toint input
-move input a
-
-input operation
-print operation
-
-input
-print input
-toint input
-multiply input b 10
-input
-print input
-toint input
-move input b
-
-@comment
-
+// Defenitions @
 def space
 def newl
 
-@comment
+// Welcome @
+printl Antosser's Brainfuck Calculator
 
-#if operation letter =
-  space
-  #if a var b
-    printletter t
-    printletter r
-    printletter u
-    printletter e
+// Code @
+add i 1
+#while i
+  input
+  #if input letter c
+    printl anton.moonalien@gmail.com
+    printl github.com/Antosser
+    newl
+    newl
+    add i -1
+    add egg -1
   #else
-    printletter f
-    printletter a
-    printletter l
-    printletter s
-    printletter e
-  #endelse
-#else
-  var result
-  #if operation letter +
-    move a result
-    move b result
-  #else
-    #if operation letter *
-      #while a
-        add a -1
-        copy b result
-      #endwhile
+    #if input letter =
+      add i -1
     #else
-      #if operation letter -
-        move a result
-        #while b
-          add b -1
-          add result -1
-        #endwhile
+      #if input letter +
+        move input operation
+        add ipart 1
       #else
-        #if operation letter /
-          copy b i
-          #while a
-            add a -1
-            add i -1
-            #if0 i
-              copy b i
-              add result 1
-            #endif
-          #endwhile
+        #if input letter -
+          move input operation
+          add ipart 1
         #else
-          #if operation letter %
-            copy b i
-            #while a
-              add a -1
-              add i -1
-              #if0 i
-                copy b i
-              #endif
-            #endwhile
-            move b result
-            #while i
-              add result -1
-              add i -1
-            #endwhile
+          #if input letter *
+            move input operation
+            add ipart 1
           #else
-            #if operation letter ^
-              add result 1
-              #while b
-                #while result
-                  copy a iftemp
-                  add result -1
-                #endwhile
-                move iftemp result
-                add b -1
-              #endwhile
+            #if input letter /
+              move input operation
+              add ipart 1
             #else
-              #if operation letter a
-                newl
-                newl
-                extern +++++++++++++++++++++[>++>+++>++++>+++++>++++++<<<<<-]+++++++++++++++++++++>>>>-.>----------..----.+++.<<<-----.<+++++..>>>-.++.>+.<-.>+.<------.<<<-.>>>+.>------.--.<<<<+.>+++++++.>>>+.++++++.-----.++++..<++.>-.
-                add egg -1
-              #endif
+              #if input letter %
+                move input operation
+                add ipart 1
+              #else
+                #if input letter ^
+                  move input operation
+                  add ipart 1
+                #else
+                  toint input
+                  #if ipart num 0
+                    multiply a 10
+                    move input a
+                  #else
+                    #if ipart num 1
+                      multiply b 10
+                      move input b
+                    #else
+                      printl error
+                      add egg 1
+                    #endelse
+                  #endelse
+                #endelse
+              #endelse
             #endelse
           #endelse
         #endelse
       #endelse
     #endelse
   #endelse
-
-  @comment  
-  #ifn0 egg
-  space
-  printletter =
+#endwhile
+@
+#if operation letter +
+  move a result
+  move b result
+#endif
+#if operation letter *
+  #while a
+    add a -1
+    copy b result
+  #endwhile
+#endif
+#if operation letter -
+  move a result
+  #while b
+    add b -1
+    add result -1
+  #endwhile
+#endif
+#if operation letter /
+  copy b i
+  #while a
+    add a -1
+    add i -1
+    #if0 i
+      copy b i
+      add result 1
+    #endif
+  #endwhile
+#endif
+#if operation letter %
+  copy b i
+  #while a
+    add a -1
+    add i -1
+    #if0 i
+      copy b i
+    #endif
+  #endwhile
+  move b result
+  #while i
+    add result -1
+    add i -1
+  #endwhile
+#endif
+#if operation letter ^
+  add result 1
+  #while b
+    #while result
+      copy a iftemp
+      add result -1
+    #endwhile
+    move iftemp result
+    add b -1
+  #endwhile
+#endif
+ 
+#ifn0 egg
   space
   todec result one ten hun
   copy ten tenhun
@@ -141,10 +154,4 @@ def newl
   clear one
   clear ten
   clear hun
-  #endif
-#endelse
-
-newl
-newl
-printletter :
-printletter )
+#endif
